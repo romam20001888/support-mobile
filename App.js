@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from './pages/Home';
+import AuthScreen from './pages/Auth';
+import HeaderMenu from './components/headerMenu';
+import HeaderFilter from './components/headerFilter';
+import HeaderMessage from './components/headerMessage';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator headerMode="screen" navigationOptions screenOptions={({ navigation }) => ({
+        headerLeft: () => <HeaderMenu navigation={navigation} />,
+      })}>
+        <Stack.Screen 
+          name="AuthScreen" 
+          component={AuthScreen}
+          options={{headerShown: false}} 
+        />
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{
+            headerRight: ({ navigation }) => (<>
+              <HeaderFilter navigation={navigation} />
+              <HeaderMessage navigation={navigation} />
+            </>),
+            title: 'Список задач'
+          }}
+          
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
