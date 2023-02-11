@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet,View,TextInput,Text } from 'react-native';
+import {StyleSheet,View,TextInput,Text,Image } from 'react-native';
 import {AsyncStorage} from 'react-native';
 
 const AuthScreen = ({navigation}) => {
@@ -20,6 +20,15 @@ const AuthScreen = ({navigation}) => {
     
     return (
         <View style={styles.container}>
+            
+            <View
+                style={styles.logoContainer}
+            >
+                <Image 
+                    style={styles.logo}
+                    source={require('../images/logo.png')}
+                />
+            </View>
             <Text
                 style={styles.h1}
             >
@@ -69,6 +78,10 @@ const AuthScreen = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
+    
+    logoContainer: {
+        marginBottom:15
+    },
     container: {
       flex: 1,
       alignItems: 'center',
@@ -97,12 +110,12 @@ const styles = StyleSheet.create({
         color:"red",
     },
     button: {
-      borderWidth: 1,
+      borderWidth: 0,
       paddingVertical:10,
       paddingHorizontal:20,
       borderRadius:20,
       marginBottom:20,
-      backgroundColor:"blue",
+      backgroundColor:"#17aaff",
       color:"white"
     },
 });
