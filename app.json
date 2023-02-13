@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.acrodev.support"
     },
     "android": {
       "package": "com.acrodev.support",
@@ -30,6 +31,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "149202ed-0611-4dfc-8890-04c176d29896"
+      }
     }
   }
 }
