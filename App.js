@@ -10,7 +10,12 @@ import HeaderMessage from './components/headerMessage';
 import * as TaskManager from 'expo-task-manager';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { Text } from 'react-native';
+import {AsyncStorage} from 'react-native';
+import AddTiket from './pages/AddTiket';
+import HeaderBack from './components/headerBack';
+import Messanger from './pages/Messanger';
+import Personal from './pages/Personal';
+import DetailTiket from './pages/DetailTiket';
 
 
 const Stack = createNativeStackNavigator();
@@ -78,7 +83,45 @@ const App = () => {
               </>),
               title: 'Список задач'
             }}
-            
+          />
+          <Stack.Screen
+            name="MessangerScreen"
+            component={Messanger}
+            options={{
+              title: 'Сообщения'
+            }}
+          />
+          <Stack.Screen
+            name="PersonalScreen"
+            component={Personal}
+            options={{
+              title: 'Личный кабинет'
+            }}
+          />
+          <Stack.Screen
+            name="DetailTiketScreen"
+            component={DetailTiket}
+            options={
+              ({ navigation}) => ({
+                headerLeft: () => (
+                  <HeaderBack navigation={navigation} pageBack={"HomeScreen"} />
+                ),
+                title: 'Информация о задаче'
+              })
+            }
+          />
+          
+          <Stack.Screen
+            name="AddTiketScreen"
+            component={AddTiket}
+            options={
+              ({ navigation}) => ({
+                headerLeft: () => (
+                  <HeaderBack navigation={navigation} pageBack={"HomeScreen"} />
+                ),
+                title: 'Создание задачи'
+              })
+            }
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -130,6 +173,7 @@ async function registerForPushNotificationsAsync() {
 			alert(`failed to get token error ${err}`);
 		}
     token = token.data
+    AsyncStorage.setItem('@PushrToken',token)
     fetch('https://8544.vps.asko.run/push/register_push.php',{
       method: 'POST', 
       headers: {

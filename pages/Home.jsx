@@ -1,44 +1,51 @@
 import * as React from 'react';
-import { StyleSheet,FlatList,View,Text,Image } from 'react-native';
+import { StyleSheet,FlatList,View,Text,Image,TouchableOpacity } from 'react-native';
 
-const Item = ({value}) => {
+const Item = ({value,navigation}) => {
     
     const [statusItem, onChangeStatusItem] = React.useState(false);
     return (
         <>
-            <View style={statusItem?styles.itemOpen:styles.item}>
+            <TouchableOpacity 
+                style={statusItem?styles.itemOpen:styles.item}
+                onPress={() =>{
+                    onChangeStatusItem(!statusItem)
+                }} 
+            >
                 <Text 
-                    onPress={() =>{
-                        onChangeStatusItem(!statusItem)
-                    }} 
                     numberOfLines={2} 
                     style={styles.title}
                 >
                     {value.title}
                 </Text>
-            </View>
+            </TouchableOpacity>
             <View style={statusItem?styles.itemInfoOpen:styles.itemInfoClosed}>
                 <View style={styles.itemNavPanel}>
-                    <View style={styles.itemNavPanelInfo}>
+                    <TouchableOpacity 
+                        style={styles.itemNavPanelInfo}
+                        onPress={() =>{ 
+                            navigation.navigate('DetailTiketScreen', {id: value.id})
+                        }}
+                    >
                         <Image 
                             style={styles.itemNavPanelIcon}
                             source={require('../images/free-icon-information.png')}
                         />
-                    </View>
+                    </TouchableOpacity>
                     {value?.dateStart?
-                        <View style={styles.itemNavPanelStop}>
+                        <TouchableOpacity style={styles.itemNavPanelStop}>
                             <Image 
                                 style={styles.itemNavPanelIcon}
                                 source={require('../images/pause.png')}
                             />
-                        </View>
+                        </TouchableOpacity>
                     :
-                        <View style={styles.itemNavPanelStart}>
+                        <TouchableOpacity style={styles.itemNavPanelStart}>
                             <Image 
                                 style={styles.itemNavPanelIcon}
                                 source={require('../images/free-icon-play-button.png')}
                             />
-                        </View>
+                        </TouchableOpacity>
                     }
 
                 </View>
@@ -138,15 +145,19 @@ const HomeScreen = ({navigation}) => {
         <>
             <FlatList
                 data={tiketList}
-                renderItem={({item}) => <Item value={item} />}
+                renderItem={({item}) => <Item value={item} navigation={navigation} />}
                 keyExtractor={item => item.id}
                 style={styles.containerFlatList}
             />
-            <View 
+            
+            <TouchableOpacity 
+                onPress={() =>{
+                    navigation.navigate('AddTiketScreen')
+                }}
                 style={styles.containerAddTiket}
             >
-                <Text style={styles.containerAddTiketText}>Добавить тикет</Text>
-            </View>
+                <Text style={styles.containerAddTiketText}>Добавить задачу</Text>
+            </TouchableOpacity>
         </>
     );
 };

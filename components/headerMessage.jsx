@@ -1,10 +1,39 @@
 import * as React from 'react';
-import { Pressable,Modal,ScrollView,StyleSheet,Text,Image,View } from 'react-native';
+import { Pressable,Modal,FlatList,StyleSheet,Text,Image,View } from 'react-native';
 import {AsyncStorage} from 'react-native';
 
+const Item = ({message}) => {
+    return (
+        <View style={styles.messageContainer}>
+            <Text style={styles.messageContainerTitle}>{message.title}</Text>
+            <Text style={styles.messageContainerText}>{message.body}</Text>
+        </View>
+    )
+};
 
 const HeaderMessage = ({navigation}) => {
     const [statusMenu, onChangeStatusMenu] = React.useState(false);
+    const [messageList, onChangeMessageList] = React.useState([]);
+
+
+    React.useEffect(async ()=>{
+        const token = await AsyncStorage.getItem('@PushrToken')
+        fetch('https://8544.vps.asko.run/push/get_list.php',{
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            token:token
+          })
+        })
+        .then(response => response.json())
+        .then(commits => {
+            onChangeMessageList(commits)
+          console.log(commits)
+        });
+    },[])
+    
     return (
       <>
         
@@ -25,8 +54,12 @@ const HeaderMessage = ({navigation}) => {
                         <Text style={styles.containerMenuTitleClose}>╳</Text>
                     </Pressable>
                 </View>
-                <View style={styles.containerMenuContainer}>
-                </View>
+                <FlatList
+                    data={messageList}
+                    renderItem={({item}) => <Item message={item} />}
+                    keyExtractor={item => item.id}
+                    style={styles.containerMenuContainer}
+                />
             </View>
         </Modal>
         <Text
@@ -50,6 +83,16 @@ const styles = StyleSheet.create({
     iconFilter: {
         width: 30,
         height: 30,
+    },
+    messageContainerTitle:{
+        fontSize:20,
+    },
+    messageContainer:{
+        marginHorizontal:10,
+        marginVertical:5,
+        backgroundColor:"#f7f7f7",
+        paddingHorizontal:10,
+        paddingVertical:5
     },
     containerMenuOpen: {
         fontSize:35,

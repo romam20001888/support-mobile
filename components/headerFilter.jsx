@@ -26,7 +26,9 @@ const HeaderFilter = ({navigation}) => {
                     </Pressable>
                 </View>
                 <View style={styles.containerMenuContainer}>
-                    
+                    <Text>
+                        Страница в разработке
+                    </Text>
                 </View>
             </View>
         </Modal>

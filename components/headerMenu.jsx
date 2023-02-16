@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable,Modal,ScrollView,StyleSheet,Text,Image,View } from 'react-native';
+import { TouchableOpacity,Modal,ScrollView,StyleSheet,Text,Image,View } from 'react-native';
 import {AsyncStorage} from 'react-native';
 
 
@@ -19,33 +19,54 @@ const HeaderMenu = ({navigation}) => {
             <View style={styles.containerMenu}>
                 <View style={styles.containerMenuTitle}>
                     <Text style={styles.containerMenuTitleText}>Меню</Text>
-                    <Pressable
+                    <TouchableOpacity
                         onPress={() => onChangeStatusMenu(!statusMenu)}
                     >
                         <Text style={styles.containerMenuTitleClose}>╳</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.containerMenuContainer}>
                     <ScrollView>
-                        <Text 
+                        <TouchableOpacity 
                             style={styles.containerMenuItem}
                             onPress={() =>{ 
                                 onChangeStatusMenu(!statusMenu)
                                 navigation.navigate('HomeScreen')
                             }}
                         >
-                            Список задач
-                        </Text>
-                        <Text 
+                            <Image 
+                                style={styles.iconMenu}
+                                source={require('../images/task.png')}
+                            />
+                            <Text style={styles.iconMenuText}>Список задач</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
                             style={styles.containerMenuItem}
                             onPress={() =>{ 
                                 onChangeStatusMenu(!statusMenu)
-                                navigation.navigate('HomeScreen')
+                                navigation.navigate('MessangerScreen')
                             }}
                         >
-                            Список задач
-                        </Text>
-                        <Text 
+                            <Image 
+                                style={styles.iconMenu}
+                                source={require('../images/comment.png')}
+                            />
+                            <Text style={styles.iconMenuText}>Сообщения</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={styles.containerMenuItem}
+                            onPress={() =>{ 
+                                onChangeStatusMenu(!statusMenu)
+                                navigation.navigate('PersonalScreen')
+                            }}
+                        >
+                            <Image 
+                                style={styles.iconMenu}
+                                source={require('../images/user.png')}
+                            />
+                            <Text style={styles.iconMenuText}>Личный кабинет</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
                             style={styles.containerMenuItemExit}
                             onPress={() =>{
                                 onChangeStatusMenu(!statusMenu)
@@ -53,13 +74,17 @@ const HeaderMenu = ({navigation}) => {
                                 navigation.navigate('AuthScreen')
                             }}
                         >
-                            Выход
-                        </Text>
+                            <Image 
+                                style={styles.iconMenu}
+                                source={require('../images/logout.png')}
+                            />
+                            <Text style={styles.iconMenuText}>Выход</Text>
+                        </TouchableOpacity>
                     </ScrollView>
                 </View>
             </View>
         </Modal>
-        <Text
+        <TouchableOpacity
             onPress={() =>{
                 onChangeStatusMenu(!statusMenu)
             }}
@@ -69,7 +94,7 @@ const HeaderMenu = ({navigation}) => {
                 style={styles.iconFilter}
                 source={require('../images/free-icon-menu.png')}
             />
-        </Text>
+        </TouchableOpacity>
       </>
     );
 };
@@ -80,16 +105,32 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
     },
+    iconMenu:{
+        width: 40,
+        height: 40,
+        marginRight:10
+    },
+    iconMenuText:{
+        fontSize:18,
+    },
     containerMenuContainer: {
         flex:1,
         width:"100%"
     },
     containerMenuItem: {
+        flex:1,
+        alignItems:"center",
+        justifyContent:"flex-start",
+        flexDirection:"row",
         fontSize:18,
         marginLeft:10,
         marginBottom:10
     },
     containerMenuItemExit: {
+        flex:1,
+        alignItems:"center",
+        justifyContent:"flex-start",
+        flexDirection:"row",
         fontSize:18,
         marginTop:30,
         marginLeft:10

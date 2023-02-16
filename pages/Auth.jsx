@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet,View,TextInput,Text,Image } from 'react-native';
+import {StyleSheet,View,TextInput,Text,Image,TouchableOpacity } from 'react-native';
 import {AsyncStorage} from 'react-native';
 
 const AuthScreen = ({navigation}) => {
@@ -52,7 +52,7 @@ const AuthScreen = ({navigation}) => {
             >
                 {ErrorText}
             </Text>
-            <Text
+            <TouchableOpacity
                 style={styles.button}
                 onPress={() =>{
                     onChangeErrorText("")
@@ -68,8 +68,10 @@ const AuthScreen = ({navigation}) => {
                     navigation.navigate('HomeScreen', {name: 'Jane'})
                 }}
             >
-                Войти
-            </Text>
+                <Text style={styles.buttonText}>
+                    Войти
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -116,8 +118,10 @@ const styles = StyleSheet.create({
       borderRadius:20,
       marginBottom:20,
       backgroundColor:"#17aaff",
-      color:"white"
     },
+    buttonText:{
+        color:"white"
+    }
 });
   
 export default AuthScreen
