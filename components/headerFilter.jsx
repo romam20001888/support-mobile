@@ -26,26 +26,7 @@ const HeaderFilter = ({navigation}) => {
                     </Pressable>
                 </View>
                 <View style={styles.containerMenuContainer}>
-                    <ScrollView>
-                        <Text 
-                            style={styles.containerMenuItem}
-                            onPress={() =>{ 
-                                onChangeStatusMenu(!statusMenu)
-                                navigation.navigate('HomeScreen')
-                            }}
-                        >
-                            Список задач
-                        </Text>
-                        <Text 
-                            style={styles.containerMenuItem}
-                            onPress={() =>{ 
-                                onChangeStatusMenu(!statusMenu)
-                                navigation.navigate('HomeScreen')
-                            }}
-                        >
-                            Список задач
-                        </Text>
-                    </ScrollView>
+                    
                 </View>
             </View>
         </Modal>
