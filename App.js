@@ -59,7 +59,6 @@ const App = () => {
 
   // await schedulePushNotification(); вызвать уведомление 
   return (
-    <>
       <NavigationContainer>
         <Stack.Navigator headerMode="screen" navigationOptions screenOptions={({ navigation }) => ({
           headerLeft: () => <HeaderMenu navigation={navigation} />,
@@ -83,8 +82,6 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
-      <Text >Токен {expoPushToken}</Text>
-    </>
   );
 };
 
