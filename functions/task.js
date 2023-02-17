@@ -77,6 +77,13 @@ const getTaskList = async () =>{ // фунция получения списка
 }
 
 
+
+const AddTask = async (data) =>{ // фунция получения списка задач
+    // Выполнить отправку на создание задачи
+    return 24 //Вернуть id созданной задачи
+}
+
 module.exports = Object.freeze({
-    getTaskList: getTaskList
+    getTaskList: getTaskList,
+    AddTask: AddTask
 });
