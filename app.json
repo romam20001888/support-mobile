@@ -39,7 +39,6 @@
       "androidMode": "collapse"
     },
     "android": {
-      // "useNextNotificationsApi": true,
       "googleServicesFile": "./google-services.json",
       "package": "com.acrodev.support",
       "versionCode": 1, 

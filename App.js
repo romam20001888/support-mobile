@@ -41,22 +41,25 @@ const App = () => {
   const notificationListener = React.useRef();
   const responseListener = React.useRef();
   
-  React.useEffect(async ()=>{
+  React.useEffect(()=>{
       try {
-        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-    
-        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-          setNotification(notification);
-        });
-    
-        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-          console.log(response);
-        });
-    
-        return () => {
-          Notifications.removeNotificationSubscription(notificationListener.current);
-          Notifications.removeNotificationSubscription(responseListener.current);
-        };
+        async function fetchData() {
+          registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+      
+          notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+            setNotification(notification);
+          });
+      
+          responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+            console.log(response);
+          });
+      
+          return () => {
+            Notifications.removeNotificationSubscription(notificationListener.current);
+            Notifications.removeNotificationSubscription(responseListener.current);
+          };
+        }
+        fetchData();
       } catch (error) {
           console.log(error)
       }

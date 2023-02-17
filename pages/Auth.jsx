@@ -7,12 +7,15 @@ const AuthScreen = ({navigation}) => {
     const [Password, onChangePassword] = React.useState('');
     const [ErrorText, onChangeErrorText] = React.useState('');
     
-    React.useEffect(async ()=>{
+    React.useEffect(()=>{
         try {
-            const token = await AsyncStorage.getItem('@UserToken')
-            if(token){
-                navigation.navigate('HomeScreen', {name: 'Jane'})
+            async function fetchData() {
+                const token = await AsyncStorage.getItem('@UserToken')
+                if(token){
+                    navigation.navigate('HomeScreen', {name: 'Jane'})
+                }
             }
+            fetchData();
         } catch (error) {
             
         }

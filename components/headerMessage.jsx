@@ -16,22 +16,25 @@ const HeaderMessage = ({navigation}) => {
     const [messageList, onChangeMessageList] = React.useState([]);
 
 
-    React.useEffect(async ()=>{
-        const token = await AsyncStorage.getItem('@PushrToken')
-        fetch('https://8544.vps.asko.run/push/get_list.php',{
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            token:token
-          })
-        })
-        .then(response => response.json())
-        .then(commits => {
-            onChangeMessageList(commits)
-          console.log(commits)
-        });
+    React.useEffect(()=>{
+        async function fetchData() {
+            const token = await AsyncStorage.getItem('@PushrToken')
+            fetch('https://8544.vps.asko.run/push/get_list.php',{
+              method: 'POST', 
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                token:token
+              })
+            })
+            .then(response => response.json())
+            .then(commits => {
+                onChangeMessageList(commits)
+              console.log(commits)
+            });
+        }
+        fetchData();
     },[])
     
     return (
