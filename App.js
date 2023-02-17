@@ -79,13 +79,15 @@ const App = () => {
           <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
-            options={{
-              headerRight: ({ navigation }) => (<>
-                <HeaderFilter navigation={navigation} />
-                <HeaderMessage navigation={navigation} />
-              </>),
+            options={
+              ({ navigation}) => ({
+                headerRight: () => (<>
+                  <HeaderFilter navigation={navigation} />
+                  <HeaderMessage navigation={navigation} />
+                </>),
               title: 'Список задач'
-            }}
+              })
+            }
           />
           <Stack.Screen
             name="MessangerScreen"
