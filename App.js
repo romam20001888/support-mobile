@@ -7,6 +7,9 @@ import HeaderMenu from './components/headerMenu';
 import HeaderFilter from './components/headerFilter';
 import HeaderMessage from './components/headerMessage';
 
+
+import { sendTokenInServer } from './functions/notification';
+
 import * as TaskManager from 'expo-task-manager';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
@@ -178,20 +181,9 @@ async function registerForPushNotificationsAsync() {
 			alert(`failed to get token error ${err}`);
 		}
     token = token.data
-    AsyncStorage.setItem('@PushrToken',token)
-    fetch('https://8544.vps.asko.run/push/register_push.php',{
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token:token
-      })
-    })
-    .then(response => response.json())
-    .then(commits => {
-      console.log(commits)
-    });
+
+    await sendTokenInServer(token)
+
   } else {
     alert('Must use physical device for Push Notifications');
   }

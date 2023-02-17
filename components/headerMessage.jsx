@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Pressable,Modal,FlatList,StyleSheet,Text,Image,View } from 'react-native';
-import {AsyncStorage} from 'react-native';
+import { getMessageList } from '../functions/notification';
 
 const Item = ({message}) => {
     return (
@@ -18,21 +18,7 @@ const HeaderMessage = ({navigation}) => {
 
     React.useEffect(()=>{
         async function fetchData() {
-            const token = await AsyncStorage.getItem('@PushrToken')
-            fetch('https://8544.vps.asko.run/push/get_list.php',{
-              method: 'POST', 
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                token:token
-              })
-            })
-            .then(response => response.json())
-            .then(commits => {
-                onChangeMessageList(commits)
-              console.log(commits)
-            });
+            onChangeMessageList(await getMessageList())
         }
         fetchData();
     },[])
