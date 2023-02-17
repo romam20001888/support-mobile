@@ -1,13 +1,38 @@
 import * as React from 'react';
-import {StyleSheet,View,TextInput,Text} from 'react-native';
+import {StyleSheet,ScrollView,TextInput,Text} from 'react-native';
 
 const Personal = ({navigation}) => {
     return (
-        <View style={styles.container}>
-            <Text>
-                Страница в разработке
-            </Text>
-        </View>
+        <ScrollView style={styles.container}>
+            <TextInput
+                style={styles.inputText} 
+                placeholder='Имя'
+            />
+            <TextInput
+                style={styles.inputText} 
+                placeholder='Фамилия'
+            />
+            <TextInput
+                style={styles.inputText} 
+                placeholder='Отчество'
+            />
+            <TextInput
+                style={styles.inputText} 
+                placeholder='E-Mail'
+            />
+            <TextInput
+                style={styles.inputText} 
+                placeholder='Логин (мин. 3 символа)'
+            />
+            <TextInput
+                style={styles.inputText} 
+                placeholder='Новый пароль'
+            />
+            <TextInput
+                style={styles.inputText} 
+                placeholder='Подтверждение нового пароля'
+            />
+        </ScrollView>
     );
 };
 
@@ -17,10 +42,17 @@ const Personal = ({navigation}) => {
 const styles = StyleSheet.create({
     
     container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#fff',
+        width:"100%",
+        padding:10,
+        backgroundColor: '#fff'
+    },
+    inputText:{
+        paddingVertical:5,
+        paddingHorizontal:10,
+        borderWidth: 1,
+        borderRadius:20,
+        marginBottom:20,
+        width:"100%"
     },
 });
   
