@@ -44,6 +44,17 @@ const App = () => {
   const notificationListener = React.useRef();
   const responseListener = React.useRef();
   
+  const PagesAuth = [
+    {
+      
+    }
+  ]
+  const PagesNoAuth = [
+    {
+      
+    }
+  ]
+
   React.useEffect(()=>{
       try {
         async function fetchData() {

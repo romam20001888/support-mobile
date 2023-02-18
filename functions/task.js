@@ -74,14 +74,18 @@ const getTaskList = async (search) =>{ // фунция получения спи
           description: 'Не вызывает сомнений, что постоянное информационно-пропогандистское обеспечение нашей деятельности напрямую зависит от прогресса профессионального общества. Следует отметить, что социально-экономическое развитие представляет собой интересный эксперимент модели развития.',
         },
     ];
-    return list.filter(word => {
-        if(word.id.toLowerCase().indexOf(search.toLowerCase())!==-1){
-            return true
-        }
-        if(word.title.toLowerCase().indexOf(search.toLowerCase())!==-1){
-            return true
-        }
-    })
+    if(search!=""){
+        return list.filter(word => {
+            if(word.id.toLowerCase().indexOf(search.toLowerCase())!==-1){
+                return true
+            }
+            if(word.title.toLowerCase().indexOf(search.toLowerCase())!==-1){
+                return true
+            }
+        })
+    }else{
+        return list;
+    }
 }
 
 
