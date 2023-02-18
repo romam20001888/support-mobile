@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet,FlatList,View,Text,Image,TouchableOpacity } from 'react-native';
+import { StyleSheet,SafeAreaView,RefreshControl,FlatList,TextInput,View,Text,Image,TouchableOpacity } from 'react-native';
 import { getTaskList } from '../functions/task';
 
 const Item = ({value,navigation}) => {
@@ -62,23 +62,32 @@ const Item = ({value,navigation}) => {
 const HomeScreen = ({navigation}) => {
     
     const [tiketList, onChangeTiketList] = React.useState([]);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const [search, setSearch] = React.useState(false);
 
-    
     React.useEffect(()=>{
+        setRefreshing(true);
         async function fetchData() {
-            onChangeTiketList(await getTaskList())
+            onChangeTiketList(await getTaskList(search))
+            setRefreshing(false);
         }
         fetchData();
-    },[])
-
+    },[search])
     return (
         <>
-            <FlatList
-                data={tiketList}
-                renderItem={({item}) => <Item value={item} navigation={navigation} />}
-                keyExtractor={item => item.id}
-                style={styles.containerFlatList}
+            <TextInput
+                style={styles.inputText} 
+                onChangeText={setSearch}
+                placeholder='Поиск'
             />
+            <SafeAreaView style={styles.container}>
+                <FlatList
+                    data={tiketList}
+                    renderItem={({item}) => <Item value={item} navigation={navigation} />}
+                    keyExtractor={item => item.id}
+                    style={styles.containerFlatList}
+                />
+            </SafeAreaView>
             
             <TouchableOpacity 
                 onPress={() =>{
@@ -93,6 +102,12 @@ const HomeScreen = ({navigation}) => {
 };
 const styles = StyleSheet.create({
     
+    inputText:{
+        paddingVertical:5,
+        paddingHorizontal:10,
+        borderWidth: 1,
+        width:"100%"
+    },
     itemInfoDescription: {
         color: "white",
     },
